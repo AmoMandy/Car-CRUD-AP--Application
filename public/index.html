@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Data API</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script  src="./Alpine.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div x-data="carApp">
+        <h1>Car Data API</h1>
+        <div>
+            <input type="text" x-model="car.color" placeholder="Color">
+            <input type="text" x-model="car.make" placeholder="Make">
+            <input type="text" x-model="car.model" placeholder="Model">
+            <input type="text" x-model="car.reg_number" placeholder="Registration Number">
+            <button @click="saveCar">Save Car</button>
+        </div>
+
+        <div>
+            <h2>Cars</h2>
+            <ul>
+                <template x-for="car in cars" :key="car.reg_number">
+                    <li>
+                        {{ car.color }} {{ car.make }} {{ car.model }} - {{ car.reg_number }}
+                        <button @click="editCar(car)">Edit</button>
+                        <button @click="deleteCar(car.reg_number)">Delete</button>
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div>
+            <button @click="getMostPopularMake">Get Most Popular Make</button>
+            <p x-text="mostPopularMake"></p>
+        </div>
+    </div>
+</body>
+
+</html>
