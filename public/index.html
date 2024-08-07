@@ -27,7 +27,10 @@
             <ul>
                 <template x-for="car in cars" :key="car.reg_number">
                     <li>
-                        {{ car.color }} {{ car.make }} {{ car.model }} - {{ car.reg_number }}
+                        <input type="text" x-model="car.color" placeholder="Color">
+                        <input type="text" x-model="car.make" placeholder="Make">
+                        <input type="text" x-model="car.model" placeholder="Model">
+                        <input type="text" x-model="car.reg_number" placeholder="Registration Number">
                         <button @click="editCar(car)">Edit</button>
                         <button @click="deleteCar(car.reg_number)">Delete</button>
                     </li>

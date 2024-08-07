@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 
-function mostPopularCar(cars) {
+export default function mostPopularMake(cars) {
     const makeCounts = cars.reduce((counts, car) => {
         counts[car.make] = (counts[car.make] || 0) + 1;
         return counts;
@@ -21,6 +21,7 @@ function mostPopularCar(cars) {
 
     return mostPopular;
 }
+console.log(mostPopularMake(cars));
 
 
 
@@ -38,10 +39,10 @@ app.get('/api/cars',function (httpRequest, httpResponse) {
 
 
 app.get('/api/cars/:reg_number', function (httpRequest, httpResponse) {
-    const car = cars.find(c => c.reg_number === httpRequest.query.reg_number);
-    if (car) {
+    const car = httpRequest.query.reg_number;
+    
         httpResponse.json(car);
-    }
+    
 });
 
 
@@ -65,12 +66,11 @@ app.delete('/api/cars', function (httpRequest, httpResponse) {
 
 
 app.get('/api/mostPopularMake', function (httpRequest, httpResponse)  {
-    const makeCount = cars.reduce((acc, car) => {
-        // acc[car.make] = (acc[car.make] || 0) + 1;
+    const makeCounts = cars.reduce((acc, car) => {
+        acc[car.make] = (acc[car.make] || 0) + 1;
         return acc;
     }, {});
 
-    const mostPopularMake = Object.keys(makeCount).reduce((a, b) => makeCount[a] > makeCount[b] ? a : b);
     httpResponse.json({ mostPopularMake });
 });
 
